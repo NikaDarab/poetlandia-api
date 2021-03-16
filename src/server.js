@@ -1,7 +1,16 @@
-/* eslint-disable no-console */
-/* eslint-disable quotes */
+require("dotenv").config();
+const pg = require("pg");
+pg.defaults.ssl = process.env.NODE_ENV === "production";
+const knex = require("knex");
 const app = require("./app");
-const { PORT } = require("./config");
+const { PORT, DB_URL } = require("./config");
+
+const db = knex({
+  client: "pg",
+  connection: DB_URL,
+});
+
+app.set("db", db);
 
 app.listen(PORT, () => {
   console.log(`Server listening at http://localhost:${PORT}`);
