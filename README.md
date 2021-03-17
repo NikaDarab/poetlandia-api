@@ -28,3 +28,4 @@ When your new project is ready for deployment, add a new Heroku application with
 # express-boilerplate
 
 Seeding `psql -U nikadarab -d poetlandia -f /Users/nikadarab/dev/thinkful/Poetlandia/poetlandia-api/seeds/seed.tables.sql`
+`psql -U nikadarab -d poetlandia -f /Users/nikadarab/dev/thinkful/Poetlandia/poetlandia-api/seeds/seed.poem.sql`
