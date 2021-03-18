@@ -10,6 +10,7 @@ const errorHandler = require("./middleware/error-handler");
 const userRouter = require("./user/user-router");
 const authRouter = require("./auth/auth-router");
 const poemRouter = require("./poem/poem-router");
+const libraryRouter = require("./library/library-router");
 
 const app = express();
 app.use(
@@ -28,6 +29,7 @@ app.get("/", (req, res) => {
 app.use("/api/auth", authRouter);
 app.use("/api/user", userRouter);
 app.use("/api/poem", poemRouter);
+app.use("/api/library", libraryRouter);
 app.use(errorHandler);
 
 module.exports = app;

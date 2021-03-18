@@ -1,4 +1,4 @@
-INSERT INTO poem(title, author, lines) 
+INSERT INTO library(title, author, lines) 
 VALUES 
 ('Sonnet 1: From fairest creatures we desire increase',
 'William Shakespeare', 

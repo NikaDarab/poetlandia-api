@@ -1,36 +1,36 @@
 const path = require("path");
 const express = require("express");
 const xss = require("xss");
-const PoemService = require("./poem-service");
-const poemRouter = express.Router();
+const LibraryService = require("./library-service");
+const libraryRouter = express.Router();
 const jsonParser = express.json();
 
-const serializePoem = (poem) => ({
-  id: poem.id,
-  title: xss(poem.title),
-  author: xss(poem.author),
-  lines: xss(poem.lines),
+const serializeLibrary = (library) => ({
+  id: library.id,
+  title: xss(library.title),
+  author: xss(library.author),
+  lines: xss(library.lines),
 });
 
-poemRouter
+libraryRouter
   .route("/")
   .get((req, res, next) => {
     const knexInstance = req.app.get("db");
-    PoemService.getAllPoems(knexInstance)
-      .then((poem) => {
-        res.json(poem.map(serializePoem));
+    LibraryService.getAllLibraries(knexInstance)
+      .then((library) => {
+        res.json(library.map(serializeLibrary));
       })
       .catch(next);
   })
   .post(jsonParser, (req, res, next) => {
     const { title, author, lines } = req.body;
-    const newPoem = {
+    const newLibrary = {
       title,
       author,
       lines,
     };
 
-    for (const [key, value] of Object.entries(newPoem)) {
+    for (const [key, value] of Object.entries(newLibrary)) {
       if (value == null) {
         return res.status(400).json({
           error: {
@@ -39,32 +39,32 @@ poemRouter
         });
       }
     }
-    PoemService.insertPoem(req.app.get("db"), newPoem)
-      .then((poem) => {
-        res.status(201).location(`/poems/${poem.id}`).json(poem);
+    LibraryService.insertLibrary(req.app.get("db"), newLibrary)
+      .then((library) => {
+        res.status(201).location(`/library/${library.id}`).json(library);
       })
       .catch(next);
   });
-poemRouter
-  .route("/:poem_id")
+libraryRouter
+  .route("/:library_id")
   .all((req, res, next) => {
-    PoemService.getById(req.app.get("db"), req.params.poem_id)
-      .then((poem) => {
-        if (!poem) {
+    LibraryService.getById(req.app.get("db"), req.params.library_id)
+      .then((library) => {
+        if (!library) {
           return res.status(404).json({
-            error: { message: "Poem doesn't exist" },
+            error: { message: "library doesn't exist" },
           });
         }
-        res.poem = poem;
+        res.library = library;
         next();
       })
       .catch(next);
   })
   .get((req, res, next) => {
-    res.json(serializePoem(res.poem));
+    res.json(serializeLibrary(res.library));
   })
   .delete((req, res, next) => {
-    PoemService.deletePoem(req.app.get("db"), req.params.poem_id)
+    LibraryService.deleteLibrary(req.app.get("db"), req.params.library_id)
       .then((numRowsAffected) => {
         res.status(204).end();
       })
@@ -72,24 +72,29 @@ poemRouter
   })
   .patch(jsonParser, (req, res, next) => {
     const { title, author, lines } = req.body;
-    const poemToUpdate = {
+    const libraryToUpdate = {
       title,
       author,
       lines,
     };
 
-    const numberOfValues = Object.values(poemToUpdate).filter(Boolean).length;
+    const numberOfValues = Object.values(libraryToUpdate).filter(Boolean)
+      .length;
     if (numberOfValues === 0)
       return res.status(400).json({
         error: {
           message: "Request body must contain  'title', 'author', 'lines' ",
         },
       });
-    PoemService.updatePoem(req.app.get("db"), req.params.poem_id, poemToUpdate)
+    LibraryService.updateLibrary(
+      req.app.get("db"),
+      req.params.library_id,
+      libraryToUpdate
+    )
       .then((numRowsAffected) => {
         res.status(204).end();
       })
       .catch(next);
   });
 
-module.exports = poemRouter;
+module.exports = libraryRouter;
