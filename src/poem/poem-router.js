@@ -3,6 +3,7 @@ const express = require("express");
 const xss = require("xss");
 const PoemService = require("./poem-service");
 const poemRouter = express.Router();
+const { requireAuth } = require("../middleware/jwt-auth");
 const jsonParser = express.json();
 
 const serializePoem = (poem) => ({
@@ -10,14 +11,15 @@ const serializePoem = (poem) => ({
   title: xss(poem.title),
   author: xss(poem.author),
   lines: xss(poem.lines),
-  user_id: xss(poem.user_id),
+  user_id: poem.user_id,
 });
 
 poemRouter
   .route("/")
+  .all(requireAuth)
   .get((req, res, next) => {
-    const knexInstance = req.app.get("db", req.user.id);
-    PoemService.getAllPoems(knexInstance)
+    // const knexInstance = req.app.get("db", req.user.id);
+    PoemService.getAllPoems(req.app.get("db"), req.user.id)
       .then((poem) => {
         res.json(poem.map(serializePoem));
       })
@@ -29,7 +31,7 @@ poemRouter
       title,
       author,
       lines,
-      user_id: req.user.id,
+      user_id,
     };
 
     for (const [key, value] of Object.entries(newPoem)) {
