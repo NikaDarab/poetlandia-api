@@ -1,4 +1,5 @@
-INSERT INTO poem(title, author, lines) 
+ 
+INSERT INTO poem("title", "author", "lines","user_id") 
 VALUES 
 ('Sonnet 1: From fairest creatures we desire increase',
 'William Shakespeare', 
@@ -17,7 +18,7 @@ VALUES
       "And tender churl mak''st waste in niggarding:",
       "  Pity the world, or else this glutton be,",
       "  To eat the world''s due, by the grave and thee."
-    }'
+    }',1
  ),
 
 
@@ -26,7 +27,7 @@ VALUES
       "Says the Naked Tree --",
       "Bonnet due in April --",
       "Wishing you Good Day --"
-    }' ),
+    }',1),
 
 
 ('A Calendar of Sonnets: Marc', 'Helen Hunt Jackson','{
@@ -44,4 +45,5 @@ VALUES
       "In secret joy makes ready for the spring;",
       "And hidden, sacred, in her breast doth bear",
       "Annunciation lilies for the year."
-    }' )
+    }' ,1);
+

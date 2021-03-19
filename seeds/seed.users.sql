@@ -1,8 +1,3 @@
-BEGIN;
-
-TRUNCATE
-  "user";
-
 INSERT INTO "user" ("id", "username", "name", "password")
 VALUES
   (
@@ -14,6 +9,3 @@ VALUES
   );
 
 
-SELECT setval('user_id_seq', (SELECT MAX(id) from "user"));
-
-COMMIT;

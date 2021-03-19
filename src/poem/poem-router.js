@@ -10,12 +10,13 @@ const serializePoem = (poem) => ({
   title: xss(poem.title),
   author: xss(poem.author),
   lines: xss(poem.lines),
+  user_id: xss(poem.user_id),
 });
 
 poemRouter
   .route("/")
   .get((req, res, next) => {
-    const knexInstance = req.app.get("db");
+    const knexInstance = req.app.get("db", req.user.id);
     PoemService.getAllPoems(knexInstance)
       .then((poem) => {
         res.json(poem.map(serializePoem));
@@ -23,11 +24,12 @@ poemRouter
       .catch(next);
   })
   .post(jsonParser, (req, res, next) => {
-    const { title, author, lines } = req.body;
+    const { title, author, lines, user_id } = req.body;
     const newPoem = {
       title,
       author,
       lines,
+      user_id: req.user.id,
     };
 
     for (const [key, value] of Object.entries(newPoem)) {

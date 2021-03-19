@@ -1,4 +1,4 @@
-INSERT INTO library(title, author, lines) 
+ INSERT INTO "library"("title", "author", "lines") 
 VALUES 
 ('Sonnet 1: From fairest creatures we desire increase',
 'William Shakespeare', 
@@ -26,7 +26,7 @@ VALUES
       "Says the Naked Tree --",
       "Bonnet due in April --",
       "Wishing you Good Day --"
-    }' ),
+    }'),
 
 
 ('A Calendar of Sonnets: Marc', 'Helen Hunt Jackson','{
@@ -44,4 +44,5 @@ VALUES
       "In secret joy makes ready for the spring;",
       "And hidden, sacred, in her breast doth bear",
       "Annunciation lilies for the year."
-    }' )
+    }');
+

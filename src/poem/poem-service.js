@@ -1,6 +1,6 @@
 const PoemService = {
-  getAllPoems(knex) {
-    return knex.select("*").from("poem");
+  getAllPoems(knex, user_id) {
+    return knex.from("poem").select("*").where("poem.user_id", user_id);
   },
 
   insertPoem(knex, newPoem) {
