@@ -12,6 +12,7 @@ const serializePoem = (poem) => ({
   author: xss(poem.author),
   lines: xss(poem.lines),
   user_id: poem.user_id,
+  date_created: poem.date,
 });
 
 poemRouter
@@ -26,12 +27,13 @@ poemRouter
       .catch(next);
   })
   .post(jsonParser, (req, res, next) => {
-    const { title, author, lines, user_id } = req.body;
+    const { title, author, lines, user_id, date_created } = req.body;
     const newPoem = {
       title,
       author,
       lines,
-      user_id,
+      user_id: req.user.id,
+      date_created,
     };
 
     for (const [key, value] of Object.entries(newPoem)) {
@@ -75,11 +77,12 @@ poemRouter
       .catch(next);
   })
   .patch(jsonParser, (req, res, next) => {
-    const { title, author, lines } = req.body;
+    const { title, author, lines, date_created } = req.body;
     const poemToUpdate = {
       title,
       author,
       lines,
+      date_created,
     };
 
     const numberOfValues = Object.values(poemToUpdate).filter(Boolean).length;

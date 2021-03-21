@@ -11,7 +11,8 @@ CREATE TABLE "poem" (
   ON DELETE CASCADE NOT NULL,
   title TEXT NOT NULL,
   author TEXT NOT NULL,
-  lines TEXT []
+  lines TEXT [],
+  date_created TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
 CREATE TABLE "library" (
