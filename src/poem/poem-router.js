@@ -12,7 +12,7 @@ const serializePoem = (poem) => ({
   author: xss(poem.author),
   lines: xss(poem.lines),
   user_id: poem.user_id,
-  date_created: poem.date,
+  date_created: poem.date_created,
 });
 
 poemRouter

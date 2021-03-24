@@ -12,7 +12,7 @@ CREATE TABLE "poem" (
   title TEXT NOT NULL,
   author TEXT NOT NULL,
   lines TEXT [],
-  date_created TIMESTAMPTZ NOT NULL DEFAULT now()
+  date_created  DATE NOT NULL DEFAULT CURRENT_DATE
 );
 
 CREATE TABLE "library" (
