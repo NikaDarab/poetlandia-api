@@ -10,6 +10,7 @@ const serializeLibrary = (library) => ({
   title: xss(library.title),
   author: xss(library.author),
   lines: xss(library.lines),
+  date_created: library.date_created,
 });
 
 libraryRouter
@@ -23,11 +24,12 @@ libraryRouter
       .catch(next);
   })
   .post(jsonParser, (req, res, next) => {
-    const { title, author, lines } = req.body;
+    const { title, author, lines, date_created } = req.body;
     const newLibrary = {
       title,
       author,
       lines,
+      date_created,
     };
 
     for (const [key, value] of Object.entries(newLibrary)) {
@@ -71,11 +73,12 @@ libraryRouter
       .catch(next);
   })
   .patch(jsonParser, (req, res, next) => {
-    const { title, author, lines } = req.body;
+    const { title, author, lines, date_created } = req.body;
     const libraryToUpdate = {
       title,
       author,
       lines,
+      date_created,
     };
 
     const numberOfValues = Object.values(libraryToUpdate).filter(Boolean)

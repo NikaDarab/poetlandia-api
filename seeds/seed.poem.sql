@@ -18,7 +18,7 @@ VALUES
       "And tender churl mak''st waste in niggarding:",
       "  Pity the world, or else this glutton be,",
       "  To eat the world''s due, by the grave and thee."
-    }',1, '2021-2-23 , 12:30 PM'
+    }',1, '2004-10-19 11:23:54'
  ),
 
 
@@ -27,7 +27,7 @@ VALUES
       "Says the Naked Tree --",
       "Bonnet due in April --",
       "Wishing you Good Day --"
-    }',1,'2020-2-13'),
+    }',1,'2004-10-19 14:23:54'),
 
 
 ('A Calendar of Sonnets: Marc', 'Helen Hunt Jackson','{
@@ -45,5 +45,5 @@ VALUES
       "In secret joy makes ready for the spring;",
       "And hidden, sacred, in her breast doth bear",
       "Annunciation lilies for the year."
-    }' ,1,'2019-10-1');
+    }' ,1,'2004-10-19 12:23:54');
 
