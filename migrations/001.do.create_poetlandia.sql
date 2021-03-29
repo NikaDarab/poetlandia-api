@@ -12,7 +12,7 @@ CREATE TABLE "poem" (
   title TEXT NOT NULL,
   author TEXT NOT NULL,
   lines TEXT [],
-  date_created  TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  date_created  TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE "library" (
@@ -20,7 +20,7 @@ CREATE TABLE "library" (
   title TEXT NOT NULL,
   author TEXT NOT NULL,
   lines TEXT [],
-  date_created  TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  date_created  TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 
@@ -31,5 +31,5 @@ CREATE TABLE "collaboration" (
   title TEXT NOT NULL,
   author TEXT NOT NULL,
   lines TEXT [],
-  date_created  TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  date_created  TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
