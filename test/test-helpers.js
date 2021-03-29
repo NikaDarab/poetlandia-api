@@ -299,13 +299,29 @@ function makeTestCollaborationArray() {
 
 function cleanTables(db) {
   return db.transaction((trx) =>
-    trx.raw(
-      `TRUNCATE
+    trx
+      .raw(
+        `TRUNCATE
+            "user",
             "poem",
             "library",
-            "collaboration",
-            "user"`
-    )
+            "collaboration"
+            `
+      )
+      .then(() =>
+        Promise.all([
+          trx.raw(`ALTER SEQUENCE user_id_seq minvalue 0 START WITH 1`),
+          trx.raw(`ALTER SEQUENCE poem_id_seq minvalue 0 START WITH 1`),
+          trx.raw(`ALTER SEQUENCE library_id_seq minvalue 0 START WITH 1`),
+          trx.raw(
+            `ALTER SEQUENCE collaboration_id_seq minvalue 0 START WITH 1`
+          ),
+          trx.raw(`SELECT setval('user_id_seq', 0)`),
+          trx.raw(`SELECT setval('poem_id_seq', 0)`),
+          trx.raw(`SELECT setval('library_id_seq', 0)`),
+          trx.raw(`SELECT setval('collaboration_id_seq', 0)`),
+        ])
+      )
   );
 }
 
