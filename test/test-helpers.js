@@ -1,5 +1,13 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const knex = require("knex");
+
+function makeKnexInstance() {
+  return knex({
+    client: "pg",
+    connection: process.env.TEST_DB_URL,
+  });
+}
 
 function makeTestUsersArray() {
   return [
@@ -371,6 +379,7 @@ function makeAuthHeader(user, secret = process.env.JWT_SECRET) {
 }
 
 module.exports = {
+  makeKnexInstance,
   makeTestUsersArray,
   makeAuthHeader,
   makeTestPoemArray,
