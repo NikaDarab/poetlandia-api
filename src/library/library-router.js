@@ -54,7 +54,7 @@ libraryRouter
       .then((library) => {
         if (!library) {
           return res.status(404).json({
-            error: { message: "library doesn't exist" },
+            error: { message: "Library doesn't exist" },
           });
         }
         res.library = library;
