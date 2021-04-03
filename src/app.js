@@ -14,6 +14,7 @@ const libraryRouter = require("./library/library-router");
 const collaborationRouter = require("./collaboration/collaboration-router");
 
 const app = express();
+
 app.use(
   morgan(NODE_ENV === "production" ? "tiny" : "common", {
     skip: () => NODE_ENV === "test",
@@ -23,7 +24,7 @@ app.use(
 app.use(helmet());
 app.use(cors());
 
-app.get("/", (req, res) => {
+app.get("/api", (req, res) => {
   res.send("Hello, world!");
 });
 
