@@ -1,33 +1,119 @@
-# Express Boilerplate!
+# Poetlandia Server | Node.js/Express
 
-This is a boilerplate project used for starting new projects!
+Live app: https://poetlandia-client.vercel.app/
 
-## Set up
+API repo: https://github.com/NikaDarab/poetlandia-api
 
-Complete the following steps to start a new project (NEW-PROJECT-NAME):
+Client repo: https://github.com/NikaDarab/poetlandia-client
 
-1. Clone this repository to your local machine `git clone BOILERPLATE-URL NEW-PROJECTS-NAME`
-2. `cd` into the cloned repository
-3. Make a fresh start of the git history for this project with `rm -rf .git && git init`
-4. Install the node dependencies `npm install`
-5. Move the example Environment file to `.env` that will be ignored by git and read by the express server `mv example.env .env`
-6. Edit the contents of the `package.json` to use NEW-PROJECT-NAME instead of `"name": "express-boilerplate",`
+## About the Poetlandia Server
 
-## Scripts
+This server is built using Node.js/Express with the purpose of being the API/backend for the Poetlandia which allows Users to create, collaborate and publish their creative writings.
 
-Start the application `npm start`
+## Documentation
 
-Start nodemon for the application `npm run dev`
+### Endpoints
 
-Run the tests `npm test`
+#### Login Endpoint
 
-## Deploying
+`POST /api/login`
 
-When your new project is ready for deployment, add a new Heroku application with `heroku create`. This will make a new git remote called "heroku" and you can then `npm run deploy` which will push to this remote's main branch.
+| Body Key    | Type     | Description           |
+| :---------- | :------- | :-------------------- |
+| `user_name` | `string` | user_name is required |
+| `password`  | `string` | password is required  |
 
-# express-boilerplate
+#### Register User Endpoint
 
-Seeding
-users:`psql -U nikadarab -d poetlandia -f /Users/nikadarab/dev/thinkful/Poetlandia/poetlandia-api/seeds/seed.users.sql`
-poems:`psql -U nikadarab -d poetlandia -f /Users/nikadarab/dev/thinkful/Poetlandia/poetlandia-api/seeds/seed.poem.sql`
-library:`psql -U nikadarab -d poetlandia -f /Users/nikadarab/dev/thinkful/Poetlandia/poetlandia-api/seeds/seed.library.sql`
+`POST /api/user`
+
+| Body Key    | Type     | Description           |
+| :---------- | :------- | :-------------------- |
+| `name`      | `string` | name is required      |
+| `user_name` | `string` | user_name is required |
+| `password`  | `string` | password is required  |
+
+#### Library Endpoints
+
+- Get public library
+  `GET /api/library`
+- Delete public library
+  `DELETE /api/library/:libraryId`
+
+### Edit/Post Library Route
+
+`POST /api/library`
+`PATCH /api/library/:libraryId`
+
+| Body Key       | Type      | Description                         |
+| :------------- | :-------- | :---------------------------------- |
+| `title`        | `string`  | title of the library (Required)     |
+| `author`       | `string`  | author (Required)                   |
+| `lines`        | `string`  | content (Required)                  |
+| `date_created` | `string`  | date and time the piece was created |
+| `user_id`      | `integer` | user_id is (Required)               |
+
+#### Collaboration Endpoints
+
+- Get collaboration
+  `GET /api/collaboration`
+- Delete collaboration
+  `DELETE /api/collaboration/:collaborationId`
+
+### Edit/Post Collaboration Route
+
+`POST /api/collaboration`
+`PATCH /api/collaboration/:collaborationId`
+
+| Body Key       | Type      | Description                           |
+| :------------- | :-------- | :------------------------------------ |
+| `title`        | `string`  | title of the collaboration (Required) |
+| `author`       | `string`  | author (Required)                     |
+| `lines`        | `string`  | content (Required)                    |
+| `date_created` | `string`  | date and time the piece was created   |
+| `user_id`      | `integer` | user_id is (Required)                 |
+
+#### Drafts Endpoints
+
+- Get public drafts
+  `GET /api/drafts`
+- Delete public library
+  `DELETE /api/drafts/:draftsId`
+
+### Edit/Post Drafts Route
+
+`POST /api/drafts`
+`PATCH /api/drafts/:draftsId`
+
+| Body Key       | Type      | Description                         |
+| :------------- | :-------- | :---------------------------------- |
+| `title`        | `string`  | title of the draft(Required)        |
+| `author`       | `string`  | author (Required)                   |
+| `lines`        | `string`  | content (Required)                  |
+| `date_created` | `string`  | date and time the piece was created |
+| `user_id`      | `integer` | user_id is (Required)               |
+
+### Status Codes
+
+This API returns the following status codes:
+
+| Status Code | Description             |
+| :---------- | :---------------------- |
+| 200         | `OK`                    |
+| 201         | `CREATED`               |
+| 400         | `BAD REQUEST`           |
+| 404         | `NOT FOUND`             |
+| 500         | `INTERNAL SERVER ERROR` |
+
+### Technology Used
+
+- Node.js
+- Express
+- PostgreSQL
+- Testing with Mocha and Chai
+
+#### To install locally
+
+- Clone the github repo to your machine.
+- Run 'npm install' in git
+- Run 'npm start'
